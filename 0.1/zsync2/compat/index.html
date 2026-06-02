@@ -890,6 +890,19 @@ runs on every push and PR to <code>main</code>. It:</p>
   exposed at <code>ControlFile.ZMap</code>. <code>ResolveCompressedURLs</code> is the
   <code>Z-Map2</code>-side counterpart of <code>ResolveTargetURL</code>. Byte-exact round
   trip via <code>Write</code> is preserved.</li>
+<li><strong><code>Z-Map2</code> maker</strong> — producing a <code>.zsync</code> indexed against a
+  gzip-compressed target. A self-contained deflate-bitstream walker
+  (<code>internal/zsync/deflate_walker.go</code>) finds every block-boundary /
+  Huffman-reset point and records the <code>(compressed-bit-offset,
+  uncompressed-byte-offset)</code> table, since Go's <code>compress/flate</code> exposes
+  no boundary hooks. Driven by <code>gozsyncmake --z-map</code> (auto-enabled for
+  <code>.gz</code> input) and the <code>MakeWithZMap2</code> / <code>EncodeZMap2</code> API.</li>
+<li><strong><code>Z-Map2</code> end-to-end tests</strong> — <code>TestCompatZMap2OurMakeRoundTrip</code>
+  exercises our maker + our reader, and <code>TestCompatZMap2UpstreamMakeOurApply</code>
+  builds the index with the C <code>zsyncmake -Z</code> and applies it with our
+  client. The latter skips cleanly when the apt-installed <code>zsyncmake</code>
+  was compiled without the gzip-aware <code>-Z</code> path (it varies across Ubuntu
+  LTS versions).</li>
 <li><strong><code>Z-Map2</code> + <code>zsync2: 1.0</code></strong> — explicitly rejected at parse time.
   The <a href="../proposal-blake3/">BLAKE3 proposal</a> hasn't pinned down random-
   access deflate semantics yet, so combining the two is left as a
@@ -897,18 +910,19 @@ runs on every push and PR to <code>main</code>. It:</p>
 </ul>
 <h2 id="whats-still-not-covered">What's still not covered<a class="headerlink" href="#whats-still-not-covered" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong><code>Z-Map2</code> maker</strong>. Producing a <code>.zsync</code> indexed against a
-  gzip-compressed target requires walking the deflate stream to find
-  Huffman-table-reset block boundaries. Go's <code>compress/flate</code> doesn't
-  expose that. A custom deflate-block walker is feasible (~300-500
-  lines) but isn't justified yet — the wild ecosystem of pre-existing
-  <code>.zsync</code> files we want to <em>consume</em> is produced by upstream <code>zsyncmake</code>,
-  which our parser already reads.</li>
-<li><strong><code>Z-Map2</code> end-to-end smoke test in CI</strong>. The fetcher side is in
-  place but the round-trip test requires a C-<code>zsyncmake -Z</code>-produced
-  gzip <code>.zsync</code> on disk; CI's apt <code>zsync</code> package doesn't ship the
-  matching <code>gzip</code> patches consistently across Ubuntu LTS versions.
-  Tracked as a follow-up.</li>
+<li><strong>Client-side <code>Z-Map2</code> fetch.</strong> The maker emits <code>Z-URL:</code> + <code>Z-Map2:</code>
+  and the client parses the restart-point table into <code>cf.ZMap</code>, but the
+  download path — <em>fetch a gz byte range, reset the inflater at a
+  restart bit-offset (priming the 32 KiB back-reference window),
+  decompress just enough to cover a missing block</em> — is not yet wired
+  into <code>gozsync</code>. A client pointed at a <code>Z-Map2</code> <code>.zsync</code> whose <code>URL:</code>
+  is a gz endpoint currently falls back to downloading the gz whole-file.</li>
+<li><strong><code>Recompress</code>.</strong> The header round-trips through <code>Write</code>, but the
+  client does not act on it.</li>
+<li><strong>BLAKE3 + <code>Z-Map2</code>.</strong> Intentionally unspecified: the parser rejects
+  the combination loudly and the maker refuses <code>--z-map --format=zsync2</code>,
+  pending the <a href="../proposal-blake3/">BLAKE3 proposal</a> pinning down the
+  random-access deflate semantics.</li>
 </ul>
 
 
