@@ -70,6 +70,19 @@ runs on every push and PR to `main`. It:
   exposed at `ControlFile.ZMap`. `ResolveCompressedURLs` is the
   `Z-Map2`-side counterpart of `ResolveTargetURL`. Byte-exact round
   trip via `Write` is preserved.
+- **`Z-Map2` maker** — producing a `.zsync` indexed against a
+  gzip-compressed target. A self-contained deflate-bitstream walker
+  (`internal/zsync/deflate_walker.go`) finds every block-boundary /
+  Huffman-reset point and records the `(compressed-bit-offset,
+  uncompressed-byte-offset)` table, since Go's `compress/flate` exposes
+  no boundary hooks. Driven by `gozsyncmake --z-map` (auto-enabled for
+  `.gz` input) and the `MakeWithZMap2` / `EncodeZMap2` API.
+- **`Z-Map2` end-to-end tests** — `TestCompatZMap2OurMakeRoundTrip`
+  exercises our maker + our reader, and `TestCompatZMap2UpstreamMakeOurApply`
+  builds the index with the C `zsyncmake -Z` and applies it with our
+  client. The latter skips cleanly when the apt-installed `zsyncmake`
+  was compiled without the gzip-aware `-Z` path (it varies across Ubuntu
+  LTS versions).
 - **`Z-Map2` + `zsync2: 1.0`** — explicitly rejected at parse time.
   The [BLAKE3 proposal](proposal-blake3.md) hasn't pinned down random-
   access deflate semantics yet, so combining the two is left as a
@@ -77,15 +90,16 @@ runs on every push and PR to `main`. It:
 
 ## What's still not covered
 
-- **`Z-Map2` maker**. Producing a `.zsync` indexed against a
-  gzip-compressed target requires walking the deflate stream to find
-  Huffman-table-reset block boundaries. Go's `compress/flate` doesn't
-  expose that. A custom deflate-block walker is feasible (~300-500
-  lines) but isn't justified yet — the wild ecosystem of pre-existing
-  `.zsync` files we want to *consume* is produced by upstream `zsyncmake`,
-  which our parser already reads.
-- **`Z-Map2` end-to-end smoke test in CI**. The fetcher side is in
-  place but the round-trip test requires a C-`zsyncmake -Z`-produced
-  gzip `.zsync` on disk; CI's apt `zsync` package doesn't ship the
-  matching `gzip` patches consistently across Ubuntu LTS versions.
-  Tracked as a follow-up.
+- **Client-side `Z-Map2` fetch.** The maker emits `Z-URL:` + `Z-Map2:`
+  and the client parses the restart-point table into `cf.ZMap`, but the
+  download path — *fetch a gz byte range, reset the inflater at a
+  restart bit-offset (priming the 32 KiB back-reference window),
+  decompress just enough to cover a missing block* — is not yet wired
+  into `gozsync`. A client pointed at a `Z-Map2` `.zsync` whose `URL:`
+  is a gz endpoint currently falls back to downloading the gz whole-file.
+- **`Recompress`.** The header round-trips through `Write`, but the
+  client does not act on it.
+- **BLAKE3 + `Z-Map2`.** Intentionally unspecified: the parser rejects
+  the combination loudly and the maker refuses `--z-map --format=zsync2`,
+  pending the [BLAKE3 proposal](proposal-blake3.md) pinning down the
+  random-access deflate semantics.
