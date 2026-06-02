@@ -1,0 +1,64 @@
+site_name: go-deltasync docs
+site_description: Pure-Go, cgo-free delta-synchronization tools — zsync2, rdiff, zchunk, vcdiff and bita.
+site_url: https://go-deltasync.github.io/docs/
+repo_url: https://github.com/go-deltasync
+repo_name: go-deltasync
+edit_uri: ""
+
+theme:
+  name: material
+  features:
+    - navigation.sections
+    - navigation.top
+    - navigation.instant
+    - content.code.copy
+    - search.suggest
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+
+extra:
+  version:
+    provider: mike
+    default: latest
+
+nav:
+  - Home: index.md
+  - zsync2:
+      - Overview: zsync2/index.md
+      - Quick start: zsync2/quickstart.md
+      - CLI reference: zsync2/cli.md
+      - Wire compatibility: zsync2/compat.md
+      - "BLAKE3 strong checksum (proposal)": zsync2/proposal-blake3.md
+  - rdiff:
+      - Overview: rdiff/index.md
+      - Quick start: rdiff/quickstart.md
+      - CLI reference: rdiff/cli.md
+      - Wire compatibility: rdiff/compat.md
+  - zchunk: zchunk/index.md
+  - vcdiff: vcdiff/index.md
+  - bita: bita/index.md
+  - Contributing: contributing.md
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
