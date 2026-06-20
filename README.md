@@ -1,3 +1,5 @@
+<p align="center"><img src="https://raw.githubusercontent.com/go-deltasync/brand/main/social/go-deltasync.png" alt="go-deltasync/docs" width="720"></p>
+
 # go-deltasync/docs
 
 Versioned documentation for the [go-deltasync](https://github.com/go-deltasync)
