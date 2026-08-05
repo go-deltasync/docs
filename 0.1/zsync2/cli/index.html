@@ -899,23 +899,43 @@ resolved against the <em>final</em> URL after HTTP redirects.</p>
 </tbody>
 </table>
 <h2 id="gozsyncmake"><code>gozsyncmake</code><a class="headerlink" href="#gozsyncmake" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>gozsyncmake hashes the input file block-by-block (rolling weak
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>checksum + MD4) and writes a .zsync control file that a zsync client
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>can later use to reconstruct the input on a target machine while
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>re-using as many shared blocks as possible from a seed file.
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>gozsyncmake hashes the input file block-by-block and writes a
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>control file that a zsync client can later use to reconstruct the input
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>on a target machine while re-using as many shared blocks as possible
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>from a seed file.
 <a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>Usage:
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>  gozsyncmake [flags] &lt;input&gt;
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>Flags:
-<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>  -b, --blocksize int     block size in bytes; must be a power of two
-<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>                          (default: auto)
-<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>  -f, --filename string   target filename to embed in the .zsync
-<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>                          (default: basename of input)
-<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>  -h, --help              help for gozsyncmake
-<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>  -o, --output string     output .zsync filename (default: &lt;input&gt;.zsync)
-<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>  -u, --url stringArray   URL the client should fetch the target from
-<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>                          (may be repeated)
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>Two on-the-wire formats are supported:
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>  --format=zsync   (default) classic Phipps zsync: 0.6 with MD4 + SHA-1.
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>                   Compatible with upstream zsync / zsyncmake.
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>  --format=zsync2  BLAKE3-capable zsync2: 1.0; output defaults to
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>                   &lt;input&gt;.zsync2. See the BLAKE3 proposal.
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>When the input is a .gz file you can pass --z-map (or let auto-detect
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>fire on the .gz extension) to additionally compute the Z-Map2
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>restart-point table. The resulting .zsync carries Z-URL: + Z-Map2:
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>headers so a client can fetch the gzipped target by HTTP byte range
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>and decompress on the fly.
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>Usage:
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>  gozsyncmake [flags] &lt;input&gt;
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>Flags:
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>  -b, --blocksize int       block size in bytes; must be a power of two
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>                            (default: auto)
+<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>  -f, --filename string     target filename to embed in the control file
+<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>                            (default: basename of input)
+<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a>      --format string       wire format to emit: zsync (classic, MD4+SHA-1)
+<a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a>                            or zsync2 (BLAKE3) (default &quot;zsync&quot;)
+<a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a>  -h, --help                help for gozsyncmake
+<a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a>  -o, --output string       output control filename
+<a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a>                            (default: &lt;input&gt;.zsync or &lt;input&gt;.zsync2)
+<a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a>  -u, --url stringArray     URL the client should fetch the uncompressed
+<a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a>                            target from (may be repeated)
+<a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a>      --z-map               compute a Z-Map2 restart table over the input
+<a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a>                            (input must be a .gz file)
+<a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a>  -Z, --z-url stringArray   URL the client should fetch the gzipped target
+<a id="__codelineno-1-37" name="__codelineno-1-37" href="#__codelineno-1-37"></a>                            from (Z-Map2 path; may be repeated)
 </code></pre></div>
 <h3 id="block-size">Block size<a class="headerlink" href="#block-size" title="Permanent link">&para;</a></h3>
 <p>When <code>--blocksize</code> is <code>0</code> (default), <code>gozsyncmake</code> picks the same value
