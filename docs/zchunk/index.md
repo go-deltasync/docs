@@ -14,13 +14,16 @@ go install github.com/go-deltasync/zchunk/cmd/zchunk@latest
 ## Quick start
 
 ```bash
-# create a .zck (optionally train + embed a zstd dictionary)
-zchunk create -i disk.img disk.img.zck
-zchunk create --dict -i disk.img disk.img.zck
+# create a .zck from a file (fixed-size chunks, zstd)
+zchunk create disk.img disk.img.zck
 
-# delta-download an update: fetch only the chunks missing locally
-zchunk download --header https://example.com/disk.img.zck.header \
-  --local old.img.zck https://example.com/disk.img.zck -o new.img.zck
+# train + embed a zstd dictionary, then create with it
+zchunk gen-zdict disk.img disk.dict
+zchunk create --dict disk.dict disk.img disk.img.zck
+
+# delta-download an update: fetch only the chunks missing locally,
+# reusing an older local copy
+zchunk download --local old.img.zck https://example.com/disk.img.zck new.img.zck
 ```
 
 ## Library

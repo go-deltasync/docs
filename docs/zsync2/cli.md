@@ -44,23 +44,43 @@ resolved against the *final* URL after HTTP redirects.
 ## `gozsyncmake`
 
 ```
-gozsyncmake hashes the input file block-by-block (rolling weak
-checksum + MD4) and writes a .zsync control file that a zsync client
-can later use to reconstruct the input on a target machine while
-re-using as many shared blocks as possible from a seed file.
+gozsyncmake hashes the input file block-by-block and writes a
+control file that a zsync client can later use to reconstruct the input
+on a target machine while re-using as many shared blocks as possible
+from a seed file.
+
+Two on-the-wire formats are supported:
+
+  --format=zsync   (default) classic Phipps zsync: 0.6 with MD4 + SHA-1.
+                   Compatible with upstream zsync / zsyncmake.
+  --format=zsync2  BLAKE3-capable zsync2: 1.0; output defaults to
+                   <input>.zsync2. See the BLAKE3 proposal.
+
+When the input is a .gz file you can pass --z-map (or let auto-detect
+fire on the .gz extension) to additionally compute the Z-Map2
+restart-point table. The resulting .zsync carries Z-URL: + Z-Map2:
+headers so a client can fetch the gzipped target by HTTP byte range
+and decompress on the fly.
 
 Usage:
   gozsyncmake [flags] <input>
 
 Flags:
-  -b, --blocksize int     block size in bytes; must be a power of two
-                          (default: auto)
-  -f, --filename string   target filename to embed in the .zsync
-                          (default: basename of input)
-  -h, --help              help for gozsyncmake
-  -o, --output string     output .zsync filename (default: <input>.zsync)
-  -u, --url stringArray   URL the client should fetch the target from
-                          (may be repeated)
+  -b, --blocksize int       block size in bytes; must be a power of two
+                            (default: auto)
+  -f, --filename string     target filename to embed in the control file
+                            (default: basename of input)
+      --format string       wire format to emit: zsync (classic, MD4+SHA-1)
+                            or zsync2 (BLAKE3) (default "zsync")
+  -h, --help                help for gozsyncmake
+  -o, --output string       output control filename
+                            (default: <input>.zsync or <input>.zsync2)
+  -u, --url stringArray     URL the client should fetch the uncompressed
+                            target from (may be repeated)
+      --z-map               compute a Z-Map2 restart table over the input
+                            (input must be a .gz file)
+  -Z, --z-url stringArray   URL the client should fetch the gzipped target
+                            from (Z-Map2 path; may be repeated)
 ```
 
 ### Block size
