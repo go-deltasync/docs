@@ -831,7 +831,7 @@
   embedded in the <code>.zsync</code>.</li>
 </ul>
 <p>Output:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>zsync: target &quot;file.bin&quot;, 1234 blocks of 4096 bytes (5050880 bytes total)
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>zsync: target "file.bin", 1234 blocks of 4096 bytes (5050880 bytes total)
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>seed scan: matched 1198/1234 blocks in 142ms
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>need to fetch 36 blocks (147456 bytes) in 4 ranges
 <a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>fetching from https://example.com/file.bin
@@ -839,8 +839,8 @@
 </code></pre></div>
 <h2 id="end-to-end-test-in-three-terminals">End-to-end test in three terminals<a class="headerlink" href="#end-to-end-test-in-three-terminals" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># terminal 1: prepare files + .zsync, serve them</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;version 1 content&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>target.bin
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;version 2 content (slightly different)&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>seed.bin
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">"version 1 content"</span><span class="w"> </span>&gt;<span class="w"> </span>target.bin
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">"version 2 content (slightly different)"</span><span class="w"> </span>&gt;<span class="w"> </span>seed.bin
 <a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>gozsyncmake<span class="w"> </span>target.bin
 <a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>python3<span class="w"> </span>-m<span class="w"> </span>http.server<span class="w"> </span><span class="m">8000</span>
 <a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
