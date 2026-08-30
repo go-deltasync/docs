@@ -2,58 +2,58 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://go-deltasync.github.io/docs/0.1/</loc>
-         <lastmod>2026-08-17</lastmod>
+         <lastmod>2026-08-30</lastmod>
     </url>
     <url>
          <loc>https://go-deltasync.github.io/docs/0.1/contributing/</loc>
-         <lastmod>2026-08-17</lastmod>
+         <lastmod>2026-08-30</lastmod>
     </url>
     <url>
          <loc>https://go-deltasync.github.io/docs/0.1/bita/</loc>
-         <lastmod>2026-08-17</lastmod>
+         <lastmod>2026-08-30</lastmod>
     </url>
     <url>
          <loc>https://go-deltasync.github.io/docs/0.1/rdiff/</loc>
-         <lastmod>2026-08-17</lastmod>
+         <lastmod>2026-08-30</lastmod>
     </url>
     <url>
          <loc>https://go-deltasync.github.io/docs/0.1/rdiff/cli/</loc>
-         <lastmod>2026-08-17</lastmod>
+         <lastmod>2026-08-30</lastmod>
     </url>
     <url>
          <loc>https://go-deltasync.github.io/docs/0.1/rdiff/compat/</loc>
-         <lastmod>2026-08-17</lastmod>
+         <lastmod>2026-08-30</lastmod>
     </url>
     <url>
          <loc>https://go-deltasync.github.io/docs/0.1/rdiff/quickstart/</loc>
-         <lastmod>2026-08-17</lastmod>
+         <lastmod>2026-08-30</lastmod>
     </url>
     <url>
          <loc>https://go-deltasync.github.io/docs/0.1/vcdiff/</loc>
-         <lastmod>2026-08-17</lastmod>
+         <lastmod>2026-08-30</lastmod>
     </url>
     <url>
          <loc>https://go-deltasync.github.io/docs/0.1/zchunk/</loc>
-         <lastmod>2026-08-17</lastmod>
+         <lastmod>2026-08-30</lastmod>
     </url>
     <url>
          <loc>https://go-deltasync.github.io/docs/0.1/zsync2/</loc>
-         <lastmod>2026-08-17</lastmod>
+         <lastmod>2026-08-30</lastmod>
     </url>
     <url>
          <loc>https://go-deltasync.github.io/docs/0.1/zsync2/cli/</loc>
-         <lastmod>2026-08-17</lastmod>
+         <lastmod>2026-08-30</lastmod>
     </url>
     <url>
          <loc>https://go-deltasync.github.io/docs/0.1/zsync2/compat/</loc>
-         <lastmod>2026-08-17</lastmod>
+         <lastmod>2026-08-30</lastmod>
     </url>
     <url>
          <loc>https://go-deltasync.github.io/docs/0.1/zsync2/proposal-blake3/</loc>
-         <lastmod>2026-08-17</lastmod>
+         <lastmod>2026-08-30</lastmod>
     </url>
     <url>
          <loc>https://go-deltasync.github.io/docs/0.1/zsync2/quickstart/</loc>
-         <lastmod>2026-08-17</lastmod>
+         <lastmod>2026-08-30</lastmod>
     </url>
 </urlset>
