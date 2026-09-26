@@ -1,5 +1,5 @@
 site_name: go-deltasync docs
-site_description: Pure-Go, cgo-free delta-synchronization tools — zsync2, rdiff, zchunk, vcdiff and bita.
+site_description: Pure-Go, cgo-free delta-synchronization tools — zsync2, rdiff, chunk, zchunk, vcdiff and bita.
 site_url: https://go-deltasync.github.io/docs/
 repo_url: https://github.com/go-deltasync
 repo_name: go-deltasync
@@ -47,6 +47,7 @@ nav:
       - Quick start: rdiff/quickstart.md
       - CLI reference: rdiff/cli.md
       - Wire compatibility: rdiff/compat.md
+  - chunk: chunk/index.md
   - zchunk: zchunk/index.md
   - vcdiff: vcdiff/index.md
   - bita: bita/index.md
