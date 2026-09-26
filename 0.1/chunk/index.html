@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://go-deltasync.github.io/docs/0.1/rdiff/">
+        <link rel="canonical" href="https://go-deltasync.github.io/docs/0.1/chunk/">
       
       
-        <link rel="prev" href="../zsync2/proposal-blake3/">
+        <link rel="prev" href="../rdiff/compat/">
       
       
-        <link rel="next" href="quickstart/">
+        <link rel="next" href="../zchunk/">
       
       
         
@@ -27,7 +27,7 @@
     
     
       
-        <title>Overview - go-deltasync docs</title>
+        <title>chunk - go-deltasync docs</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#rdiff" class="md-skip">
+        <a href="#chunk" class="md-skip">
           Skip to content
         </a>
       
@@ -117,7 +117,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Overview
+              chunk
             
           </span>
         </div>
@@ -487,8 +487,6 @@
       
   
   
-    
-  
   
   
     
@@ -501,11 +499,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
         
           
           <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
@@ -526,7 +524,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -541,19 +539,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../rdiff/" class="md-nav__link">
         
   
   
@@ -569,7 +558,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -582,7 +570,7 @@
   
   
     <li class="md-nav__item">
-      <a href="quickstart/" class="md-nav__link">
+      <a href="../rdiff/quickstart/" class="md-nav__link">
         
   
   
@@ -610,7 +598,7 @@
   
   
     <li class="md-nav__item">
-      <a href="cli/" class="md-nav__link">
+      <a href="../rdiff/cli/" class="md-nav__link">
         
   
   
@@ -638,7 +626,7 @@
   
   
     <li class="md-nav__item">
-      <a href="compat/" class="md-nav__link">
+      <a href="../rdiff/compat/" class="md-nav__link">
         
   
   
@@ -670,10 +658,37 @@
       
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../chunk/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    chunk
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -689,6 +704,81 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#why-a-rolling-hash-and-not-a-counter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why a rolling hash and not a counter
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#use" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-it-comes-from" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where it comes from
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-other-two-rolling-sums-are-not-this-one" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⛔ The other two rolling sums are not this one
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -821,6 +911,69 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#why-a-rolling-hash-and-not-a-counter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why a rolling hash and not a counter
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#use" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-it-comes-from" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where it comes from
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-other-two-rolling-sums-are-not-this-one" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⛔ The other two rolling sums are not this one
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -836,15 +989,74 @@
 
 
 
-<h1 id="rdiff">rdiff<a class="headerlink" href="#rdiff" title="Permanent link">&para;</a></h1>
-<p>A pure-Go, <strong>librsync-interoperable</strong> implementation of the classic rsync
-<strong>signature → delta → patch</strong> workflow.</p>
-<ul>
-<li><a href="quickstart/">Quick start</a> · <a href="cli/">CLI reference</a> · <a href="compat/">Wire compatibility</a></li>
-<li>Repository: <a href="https://github.com/go-deltasync/rdiff">github.com/go-deltasync/rdiff</a></li>
-</ul>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>go<span class="w"> </span>install<span class="w"> </span>github.com/go-deltasync/rdiff/cmd/rdiff@latest
+<h1 id="chunk">chunk<a class="headerlink" href="#chunk" title="Permanent link">&para;</a></h1>
+<p>Cuts a stream into pieces at boundaries <strong>the content decides</strong>. Pure Go, no
+dependencies, <code>CGO_ENABLED=0</code>.</p>
+<p>Repository: <a href="https://github.com/go-deltasync/chunk">github.com/go-deltasync/chunk</a></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>go<span class="w"> </span>get<span class="w"> </span>github.com/go-deltasync/chunk
 </code></pre></div>
+<h2 id="why-a-rolling-hash-and-not-a-counter">Why a rolling hash and not a counter<a class="headerlink" href="#why-a-rolling-hash-and-not-a-counter" title="Permanent link">&para;</a></h2>
+<p>Cut every sixty-four kilobytes, and inserting one byte at the front moves every
+later boundary: nothing matches what was stored before, so the whole file is
+written and sent again. Cut where a rolling hash over the last few bytes has
+some shape, and inserting one byte disturbs the two chunks around it and nothing
+else.</p>
+<p>That is what makes deduplication and delta transfer work at all — a backup that
+keeps only what changed, an archive that fetches only the chunks it lacks, a
+content-addressed store where the same bytes are stored once.</p>
+<p>The difference is measured rather than asserted.
+<code>TestAnEditDisturbsOnlyWhatIsNearIt</code> inserts one byte a tenth of the way into
+200 kB and counts what survives:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>958 of 1067 chunks unchanged after inserting one byte at 10%
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>cutting every 256 bytes kept 0 of 782
+</code></pre></div>
+<h2 id="use">Use<a class="headerlink" href="#use" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1">// A stream.</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nx">c</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">chunk</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="nx">reader</span><span class="p">,</span><span class="w"> </span><span class="nx">chunk</span><span class="p">.</span><span class="nx">Config</span><span class="p">{})</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="k">for</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="nx">offset</span><span class="p">,</span><span class="w"> </span><span class="nx">piece</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">c</span><span class="p">.</span><span class="nx">Next</span><span class="p">()</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">errors</span><span class="p">.</span><span class="nx">Is</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="w"> </span><span class="nx">io</span><span class="p">.</span><span class="nx">EOF</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">        </span><span class="k">break</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="c1">// …</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="p">}</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="c1">// Bytes already in hand, for a caller that wants the pieces and nothing else.</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="nx">pieces</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">chunk</span><span class="p">.</span><span class="nx">Cut</span><span class="p">(</span><span class="nx">chunk</span><span class="p">.</span><span class="nx">Config</span><span class="p">{})(</span><span class="nx">data</span><span class="p">)</span>
+</code></pre></div>
+<p><code>Cut</code> returns the shape a content-addressed store usually asks for — for
+instance <code>go-crdt/crdt</code>'s blob store, which takes any chunker:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nx">blobs</span><span class="p">.</span><span class="nx">PutWith</span><span class="p">(</span><span class="s">"figure.png"</span><span class="p">,</span><span class="w"> </span><span class="nx">data</span><span class="p">,</span><span class="w"> </span><span class="nx">chunk</span><span class="p">.</span><span class="nx">Cut</span><span class="p">(</span><span class="nx">chunk</span><span class="p">.</span><span class="nx">Config</span><span class="p">{}))</span>
+</code></pre></div>
+<h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
+<p>The zero <code>Config</code> is BuzHash over a sixteen-byte window, aiming at 64 KiB chunks
+between 16 KiB and 16 MiB — <a href="../bita/">bita</a>'s defaults. <code>RollSumConfig</code> is
+bita's other hash, over the window it was tuned for.</p>
+<p><code>Average</code> sets how many bits of the hash a boundary needs, so it is rounded down
+to a power of two; <code>Min</code> and <code>Max</code> bound what that can produce. A run of one
+repeated byte never trips the test, so <code>Max</code> is what ends the chunk — without it
+a file of zeroes would be a single chunk.</p>
+<h2 id="where-it-comes-from">Where it comes from<a class="headerlink" href="#where-it-comes-from" title="Permanent link">&para;</a></h2>
+<p>The rolling hashes, the seed, the table and the boundary test are
+<a href="../bita/">bita</a>'s, so a stream cut here is cut in the same places bita cuts
+it, and an archive written by either is readable by the other. They were written
+for bita and lived inside it, where nothing else could reach them. This is the
+same code with a name, so the next thing needing content-defined chunks does not
+write its own.</p>
+<h2 id="the-other-two-rolling-sums-are-not-this-one">⛔ The other two rolling sums are not this one<a class="headerlink" href="#the-other-two-rolling-sums-are-not-this-one" title="Permanent link">&para;</a></h2>
+<p>Two more live in this organisation and are <strong>not</strong> interchangeable with it:
+<code>rdiff</code>'s is librsync's and <code>zsync2</code>'s is zsync's. All three are the same
+Fletcher family and no two are the same function — different widths, different
+initial state, differently packed digests, and zsync adds no offset to a byte
+where the other two add thirty-one. On the same eight bytes:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>chunk.RollSum 0x011c0740
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>rdiff.Rollsum 0x04d4011c
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>zsync.Rsum    0x00240078
+</code></pre></div>
+<p>That is not an oversight to tidy up. Each is a constant of a wire format
+something else already wrote — a signature file, a <code>.zsync</code> header, an archive.
+Sharing one would make this package's users agree with each other and one of
+those formats unreadable.</p>
 
 
 
