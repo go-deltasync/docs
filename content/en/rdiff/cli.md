@@ -1,9 +1,14 @@
-# rdiff — CLI reference
+---
+title: "CLI reference"
+weight: 90
+---
+
+# rdiff — CLI reference {#rdiff-cli-reference}
 
 The binary is built on [`cobra`](https://github.com/spf13/cobra), so `--help`
 (and `-h`) is available on every command, and `--version` prints the build.
 
-## `rdiff signature`
+## `rdiff signature` {#rdiff-signature}
 
 ```
 rdiff signature [flags] BASIS SIGNATURE
@@ -21,7 +26,7 @@ The signature lists, per block of BASIS, a 4-byte rolling weak checksum and a
 (optionally truncated) strong checksum. Smaller `--block-size` → finer change
 detection but a larger signature.
 
-## `rdiff delta`
+## `rdiff delta` {#rdiff-delta}
 
 ```
 rdiff delta SIGNATURE NEWFILE DELTA
@@ -33,7 +38,7 @@ A rolling weak checksum slides over NEWFILE; weak-sum hits are confirmed by the
 strong sum and emitted as COPY commands referencing the basis, while unmatched
 runs become LITERALs.
 
-## `rdiff patch`
+## `rdiff patch` {#rdiff-patch}
 
 ```
 rdiff patch BASIS DELTA NEWFILE
@@ -44,7 +49,7 @@ Apply DELTA to BASIS, producing NEWFILE.
 BASIS must be a regular file — COPY commands read it at random offsets, so it
 cannot be a stream.
 
-## Conventions
+## Conventions {#conventions}
 
 | | |
 | --- | --- |
@@ -52,7 +57,7 @@ cannot be a stream.
 | Exit code 0 | success |
 | Exit code 1 | any error (IO, malformed signature/delta, bad magic) |
 
-## On-disk formats
+## On-disk formats {#on-disk-formats}
 
 | File | Magic (big-endian) |
 | --- | --- |
@@ -61,4 +66,4 @@ cannot be a stream.
 | signature (BLAKE2b) | `0x72730137` |
 
 These are the librsync magics, so files are interchangeable with the C `rdiff`.
-See [Wire compatibility](compat.md).
+See [Wire compatibility]({{< relref "compat.md" >}}).

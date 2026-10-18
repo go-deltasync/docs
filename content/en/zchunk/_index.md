@@ -1,4 +1,9 @@
-# zchunk
+---
+title: "zchunk"
+weight: 120
+---
+
+# zchunk {#zchunk}
 
 A pure-Go, cross-platform toolkit for the [zchunk](https://github.com/zchunk/zchunk)
 file format — content-defined chunking with per-chunk checksums, enabling
@@ -11,7 +16,7 @@ Repository: [github.com/go-deltasync/zchunk](https://github.com/go-deltasync/zch
 go install github.com/go-deltasync/zchunk/cmd/zchunk@latest
 ```
 
-## Quick start
+## Quick start {#quick-start}
 
 ```bash
 # create a .zck from a file (fixed-size chunks, zstd)
@@ -26,7 +31,7 @@ zchunk create --dict disk.dict disk.img disk.img.zck
 zchunk download --local old.img.zck https://example.com/disk.img.zck new.img.zck
 ```
 
-## Library
+## Library {#library}
 
 ```go
 import "github.com/go-deltasync/zchunk"

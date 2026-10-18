@@ -1,4 +1,9 @@
-# vcdiff
+---
+title: "vcdiff"
+weight: 130
+---
+
+# vcdiff {#vcdiff}
 
 A pure-Go, **xdelta3-interoperable** implementation of the VCDIFF
 ([RFC 3284](https://www.rfc-editor.org/rfc/rfc3284)) delta format. Standard wire
@@ -11,7 +16,7 @@ Repository: [github.com/go-deltasync/vcdiff](https://github.com/go-deltasync/vcd
 go install github.com/go-deltasync/vcdiff/cmd/vcdiff@latest
 ```
 
-## Quick start
+## Quick start {#quick-start}
 
 ```bash
 vcdiff encode -s old.bin new.bin patch.vcdiff   # delta against a dictionary
@@ -22,7 +27,7 @@ vcdiff encode new.bin patch.vcdiff              # no source: pure compression
 vcdiff decode patch.vcdiff out.bin
 ```
 
-## Library
+## Library {#library}
 
 ```go
 import "github.com/go-deltasync/vcdiff"

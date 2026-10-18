@@ -1,4 +1,9 @@
-# chunk
+---
+title: "chunk"
+weight: 110
+---
+
+# chunk {#chunk}
 
 Cuts a stream into pieces at boundaries **the content decides**. Pure Go, no
 dependencies, `CGO_ENABLED=0`.
@@ -9,7 +14,7 @@ Repository: [github.com/go-deltasync/chunk](https://github.com/go-deltasync/chun
 go get github.com/go-deltasync/chunk
 ```
 
-## Why a rolling hash and not a counter
+## Why a rolling hash and not a counter {#why-a-rolling-hash-and-not-a-counter}
 
 Cut every sixty-four kilobytes, and inserting one byte at the front moves every
 later boundary: nothing matches what was stored before, so the whole file is
@@ -30,7 +35,7 @@ The difference is measured rather than asserted.
 cutting every 256 bytes kept 0 of 782
 ```
 
-## Use
+## Use {#use}
 
 ```go
 // A stream.
@@ -54,10 +59,10 @@ instance `go-crdt/crdt`'s blob store, which takes any chunker:
 blobs.PutWith("figure.png", data, chunk.Cut(chunk.Config{}))
 ```
 
-## Configuration
+## Configuration {#configuration}
 
 The zero `Config` is BuzHash over a sixteen-byte window, aiming at 64 KiB chunks
-between 16 KiB and 16 MiB — [bita](../bita/index.md)'s defaults. `RollSumConfig` is
+between 16 KiB and 16 MiB — [bita]({{< relref "../bita/_index.md" >}})'s defaults. `RollSumConfig` is
 bita's other hash, over the window it was tuned for.
 
 `Average` sets how many bits of the hash a boundary needs, so it is rounded down
@@ -65,16 +70,16 @@ to a power of two; `Min` and `Max` bound what that can produce. A run of one
 repeated byte never trips the test, so `Max` is what ends the chunk — without it
 a file of zeroes would be a single chunk.
 
-## Where it comes from
+## Where it comes from {#where-it-comes-from}
 
 The rolling hashes, the seed, the table and the boundary test are
-[bita](../bita/index.md)'s, so a stream cut here is cut in the same places bita cuts
+[bita]({{< relref "../bita/_index.md" >}})'s, so a stream cut here is cut in the same places bita cuts
 it, and an archive written by either is readable by the other. They were written
 for bita and lived inside it, where nothing else could reach them. This is the
 same code with a name, so the next thing needing content-defined chunks does not
 write its own.
 
-## ⛔ The other two rolling sums are not this one
+## ⛔ The other two rolling sums are not this one {#the-other-two-rolling-sums-are-not-this-one}
 
 Two more live in this organisation and are **not** interchangeable with it:
 `rdiff`'s is librsync's and `zsync2`'s is zsync's. All three are the same

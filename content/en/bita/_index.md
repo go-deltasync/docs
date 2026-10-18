@@ -1,4 +1,9 @@
-# bita
+---
+title: "bita"
+weight: 140
+---
+
+# bita {#bita}
 
 A pure-Go, cgo-free reimplementation of [oll3/bita](https://github.com/oll3/bita):
 differential file synchronization over HTTP. `bita` chunks a file with a
@@ -13,7 +18,7 @@ Repository: [github.com/go-deltasync/bita](https://github.com/go-deltasync/bita)
 go install github.com/go-deltasync/bita/cmd/bita@latest
 ```
 
-## Quick start
+## Quick start {#quick-start}
 
 ```bash
 bita compress -i disk.img disk.cba
@@ -25,7 +30,7 @@ bita clone --seed v1.img https://example.com/v2.cba v2.img --verify-output
 bita info disk.cba
 ```
 
-## Library
+## Library {#library}
 
 ```go
 import "github.com/go-deltasync/bita"

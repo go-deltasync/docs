@@ -1,10 +1,15 @@
-# CLI reference
+---
+title: "CLI reference"
+weight: 40
+---
+
+# CLI reference {#cli-reference}
 
 Both binaries are built on top of [`cobra`](https://github.com/spf13/cobra),
 so `--help` is always available and a `-h` short flag is wired up
 everywhere.
 
-## `gozsync`
+## `gozsync` {#gozsync}
 
 ```
 gozsync reads a .zsync control file (locally or over HTTP), reuses any
@@ -24,7 +29,7 @@ Flags:
   -q, --quiet           suppress progress output
 ```
 
-### Argument
+### Argument {#argument}
 
 `<zsync-url-or-file>` is required. May be:
 
@@ -34,14 +39,14 @@ Flags:
 If it's a URL and the .zsync embeds relative `URL:` paths, those are
 resolved against the *final* URL after HTTP redirects.
 
-### Exit codes
+### Exit codes {#exit-codes}
 
 | Code | Meaning |
 | --- | --- |
 | 0 | Reconstruction succeeded; SHA-1 of output matches the .zsync header |
 | 1 | Any other error (network, IO, hash mismatch, malformed .zsync) |
 
-## `gozsyncmake`
+## `gozsyncmake` {#gozsyncmake}
 
 ```
 gozsyncmake hashes the input file block-by-block and writes a
@@ -83,14 +88,14 @@ Flags:
                             from (Z-Map2 path; may be repeated)
 ```
 
-### Block size
+### Block size {#block-size}
 
 When `--blocksize` is `0` (default), `gozsyncmake` picks the same value
 the C reference picks: a power of two between 1024 and 32768, sized so
 the resulting weak-checksum table has ~10 bits of overhead per block.
 Bigger blocks → smaller `.zsync` but coarser change detection.
 
-### URLs
+### URLs {#urls}
 
 Pass one or more `--url` to embed in the `.zsync`. The client picks the
 first one that works (multi-URL failover is not implemented in MVP, but

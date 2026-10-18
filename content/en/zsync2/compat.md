@@ -1,10 +1,15 @@
-# Wire compatibility with upstream zsync
+---
+title: "Wire compatibility"
+weight: 50
+---
+
+# Wire compatibility with upstream zsync {#wire-compatibility-with-upstream-zsync}
 
 The whole point of `go-deltasync/zsync2` is that the `.zsync` it reads and
 writes is **byte-for-byte identical** to what the upstream C/C++
 implementations produce. This page is the receipt.
 
-## What we test against
+## What we test against {#what-we-test-against}
 
 Two reference implementations exist in the wild:
 
@@ -23,7 +28,7 @@ against one of them. We test against the Debian `zsync` package because:
 
 If the compat test passes against `zsync`, it passes against `zsync2`.
 
-## The compat test
+## The compat test {#the-compat-test}
 
 `internal/zsync/compat_test.go` runs with the `compat` build tag:
 
@@ -47,7 +52,7 @@ All four pass at every commit; CI gates merges on this. If `zsync` /
 `zsyncmake` are not on `$PATH` (local development on macOS, say) the suite
 skips cleanly rather than failing.
 
-## CI
+## CI {#ci}
 
 The [`compat` workflow](https://github.com/go-deltasync/zsync2/blob/main/.github/workflows/compat.yml)
 runs on every push and PR to `main`. It:
@@ -56,7 +61,7 @@ runs on every push and PR to `main`. It:
 2. Runs `go test -tags=compat -race ./...`
 3. Fails the PR if any of the four round trips diverge by a byte
 
-## What's covered as of this release
+## What's covered as of this release {#whats-covered-as-of-this-release}
 
 - **Multi-URL failover** — `ResolveTargetURL` returns the full list of
   `URL:` entries embedded in the `.zsync`, and `FetchBlocksMulti` walks
@@ -84,11 +89,11 @@ runs on every push and PR to `main`. It:
   was compiled without the gzip-aware `-Z` path (it varies across Ubuntu
   LTS versions).
 - **`Z-Map2` + `zsync2: 1.0`** — explicitly rejected at parse time.
-  The [BLAKE3 proposal](proposal-blake3.md) hasn't pinned down random-
+  The [BLAKE3 proposal]({{< relref "proposal-blake3.md" >}}) hasn't pinned down random-
   access deflate semantics yet, so combining the two is left as a
   separate spec.
 
-## What's still not covered
+## What's still not covered {#whats-still-not-covered}
 
 - **Client-side `Z-Map2` fetch.** The maker emits `Z-URL:` + `Z-Map2:`
   and the client parses the restart-point table into `cf.ZMap`, but the
@@ -101,5 +106,5 @@ runs on every push and PR to `main`. It:
   client does not act on it.
 - **BLAKE3 + `Z-Map2`.** Intentionally unspecified: the parser rejects
   the combination loudly and the maker refuses `--z-map --format=zsync2`,
-  pending the [BLAKE3 proposal](proposal-blake3.md) pinning down the
+  pending the [BLAKE3 proposal]({{< relref "proposal-blake3.md" >}}) pinning down the
   random-access deflate semantics.

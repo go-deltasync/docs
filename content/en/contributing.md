@@ -1,8 +1,13 @@
-# Contributing
+---
+title: "Contributing"
+weight: 150
+---
+
+# Contributing {#contributing}
 
 PRs welcome on any of the org's repositories. Two rules:
 
-## 1. Wire compatibility is non-negotiable
+## 1. Wire compatibility is non-negotiable {#1-wire-compatibility-is-non-negotiable}
 
 Every protocol we ship has a canonical reference implementation
 (zsync → Phipps' C, rsync → Tridgell's C, etc.). The compat suite in CI
@@ -12,7 +17,7 @@ suite skip, that's the same as failing it.** If you genuinely need a
 behaviour the reference doesn't have, that's a new tool, not a change to
 the existing one.
 
-## 2. No cgo, no platform-specific syscalls
+## 2. No cgo, no platform-specific syscalls {#2-no-cgo-no-platform-specific-syscalls}
 
 Every project here builds clean on Linux, macOS, and Windows out of the
 box. That means:
@@ -23,7 +28,7 @@ box. That means:
 - if you need a syscall that's not in `os` / `io` / `syscall`, that's a
   signal to redesign
 
-## Boring practical stuff
+## Boring practical stuff {#boring-practical-stuff}
 
 - Run `go test -race ./...` and `go vet ./...` before pushing.
 - Run `go test -tags=compat ./...` if you have the reference tools
@@ -35,7 +40,7 @@ box. That means:
 - One concern per commit. The conventional-commit style isn't strictly
   required but is the norm — `fix(parser): ...`, `feat(cli): ...`, etc.
 
-## Filing bugs
+## Filing bugs {#filing-bugs}
 
 Use GitHub Issues on the affected repo. For protocol-correctness bugs,
 include:

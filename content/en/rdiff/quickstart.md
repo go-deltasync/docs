@@ -1,4 +1,9 @@
-# rdiff — Quick start
+---
+title: "Quick start"
+weight: 80
+---
+
+# rdiff — Quick start {#rdiff-quick-start}
 
 `rdiff` is a pure-Go, **librsync-interoperable** implementation of the classic
 rsync signature / delta / patch workflow. It computes a small *delta* between an
@@ -10,12 +15,12 @@ delta      SIGNATURE NEW  -> DELTA       instructions to turn BASIS into NEW
 patch      BASIS DELTA    -> NEW         apply the instructions
 ```
 
-Unlike [zsync2](../index.md), which fetches changed blocks over HTTP, `rdiff`
+Unlike [zsync2]({{< relref "../_index.md" >}}), which fetches changed blocks over HTTP, `rdiff`
 works on **local files** and produces a standalone delta you can transport any
 way you like — exactly like the C `rdiff` from librsync, and byte-compatible
 with it.
 
-## Install
+## Install {#install}
 
 ```bash
 go install github.com/go-deltasync/rdiff/cmd/rdiff@latest
@@ -24,7 +29,7 @@ go install github.com/go-deltasync/rdiff/cmd/rdiff@latest
 Pre-built static binaries for Linux/macOS/Windows on amd64 and arm64 are
 attached to every tagged release.
 
-## The 30-second demo
+## The 30-second demo {#the-30-second-demo}
 
 ```bash
 # 1. The party holding the old file publishes a signature (small).
@@ -42,7 +47,7 @@ cmp app-v2.bin app-v2.rebuilt                # identical
 For a 200 KB file changed in one spot, the delta is a couple of KB instead of
 re-shipping the whole file.
 
-## Choosing a hash
+## Choosing a hash {#choosing-a-hash}
 
 The strong checksum defaults to **BLAKE2b-256** (modern librsync default). For
 interop with very old signatures, switch to MD4:

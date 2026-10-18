@@ -1,9 +1,14 @@
-# rdiff — Wire compatibility
+---
+title: "Wire compatibility"
+weight: 100
+---
+
+# rdiff — Wire compatibility {#rdiff-wire-compatibility}
 
 `rdiff` reproduces librsync's on-disk formats exactly, so its files are
 interchangeable with the upstream C `rdiff` in both directions.
 
-## What we match
+## What we match {#what-we-match}
 
 - **Delta format** — magic `0x72730236`, the full librsync command set:
   inline LITERAL (1..64), LITERAL with 1/2/4/8-byte length, and the 16 COPY
@@ -17,7 +22,7 @@ interchangeable with the upstream C `rdiff` in both directions.
   `0x72730137`), truncated to `strong_len`.
 - **Short final block** — summed over its actual bytes, never zero-padded.
 
-## What we test against
+## What we test against {#what-we-test-against}
 
 The [`compat`](https://github.com/go-deltasync/rdiff/blob/main/.github/workflows/compat.yml)
 CI job installs the upstream `rdiff` (librsync) on Linux and runs two
@@ -32,7 +37,7 @@ Both must reconstruct the new file byte-for-byte. The tests `t.Skip` when
 `rdiff` is not on `PATH`, so the suite stays green locally without librsync
 installed.
 
-## Manual cross-check
+## Manual cross-check {#manual-cross-check}
 
 ```bash
 rdiff signature old.bin c.sig          # C reference
@@ -41,7 +46,7 @@ rdiff patch old.bin go.delta out.bin   # C reference
 cmp new.bin out.bin
 ```
 
-## Known differences
+## Known differences {#known-differences}
 
 - A short final basis block is matched only when the **new file ends** with
   those bytes; a short block appearing mid-stream is emitted literally. Output
