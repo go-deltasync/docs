@@ -1,6 +1,11 @@
-# Quick start
+---
+title: "Quick start"
+weight: 30
+---
 
-## Install
+# Quick start {#quick-start}
+
+## Install {#install}
 
 ```bash
 go install github.com/go-deltasync/zsync2/cmd/gozsync@latest
@@ -9,7 +14,7 @@ go install github.com/go-deltasync/zsync2/cmd/gozsyncmake@latest
 
 Or grab a pre-built binary from the [Releases page](https://github.com/go-deltasync/zsync2/releases).
 
-## Make a `.zsync` for a file you serve
+## Make a `.zsync` for a file you serve {#make-a-zsync-for-a-file-you-serve}
 
 ```bash
 gozsyncmake --url https://example.com/file.bin file.bin
@@ -20,7 +25,7 @@ Serve both `file.bin` and `file.bin.zsync` from any static HTTP server
 (nginx, Caddy, `python3 -m http.server`, S3 — anything that honors
 `Range:` requests).
 
-## Fetch an update on the client side
+## Fetch an update on the client side {#fetch-an-update-on-the-client-side}
 
 ```bash
 gozsync --input ./old-version --output ./new-version https://example.com/file.bin.zsync
@@ -41,7 +46,7 @@ fetching from https://example.com/file.bin
 wrote ./new-version (5050880 bytes)
 ```
 
-## End-to-end test in three terminals
+## End-to-end test in three terminals {#end-to-end-test-in-three-terminals}
 
 ```bash
 # terminal 1: prepare files + .zsync, serve them
@@ -57,7 +62,7 @@ gozsync --input seed.bin --output out.bin http://localhost:8000/target.bin.zsync
 diff target.bin out.bin && echo OK
 ```
 
-## What this protocol is good for
+## What this protocol is good for {#what-this-protocol-is-good-for}
 
 - **Distro mirrors**: Debian, Ubuntu, AppImage all use zsync for ISO and
   AppImage updates.

@@ -1,11 +1,16 @@
-# Proposal: BLAKE3 strong checksum
+---
+title: "BLAKE3 strong checksum (proposal)"
+weight: 60
+---
+
+# Proposal: BLAKE3 strong checksum {#proposal-blake3-strong-checksum}
 
 **Status:** Draft &mdash; comments welcome on
 [github.com/go-deltasync/zsync2/discussions](https://github.com/go-deltasync/zsync2/discussions).
 **Target version:** zsync2 wire format `1.0` (current shipping ships
 the classic Phipps wire format `0.6`).
 
-## Problem
+## Problem {#problem}
 
 The zsync wire format requires two cryptographic hashes:
 
@@ -36,7 +41,7 @@ Concretely:
 This proposal upgrades both hashes to **BLAKE3** without breaking
 existing `.zsync` consumers.
 
-## Why BLAKE3 specifically
+## Why BLAKE3 specifically {#why-blake3-specifically}
 
 - **Speed**: ~6 GB/s single-threaded on modern x86-64 (Phipps' MD4 sits
   around 700 MB/s), faster on aarch64-NEON, near memory-bandwidth on
@@ -56,7 +61,7 @@ existing `.zsync` consumers.
 
 [b3-go]: https://github.com/lukechampine/blake3
 
-## Wire format changes (proposed)
+## Wire format changes (proposed) {#wire-format-changes-proposed}
 
 The current header block looks like:
 
@@ -112,7 +117,7 @@ The binary block table layout doesn't change. Per block:
 Only the *meaning* of the strong-hash prefix changes (MD4 truncation
 &rarr; BLAKE3 truncation). Same width, same offset.
 
-### Compat matrix
+### Compat matrix {#compat-matrix}
 
 | Maker emits | Reader sees | Behaviour |
 | --- | --- | --- |
@@ -130,7 +135,7 @@ new format prefer `.zsync2`; old clients pick `.zsync`.
 This matches what GnuPG did with the `.asc` &harr; `.sig` split:
 filename extension carries the version, content stays clean.
 
-## Cross-implementation strategy
+## Cross-implementation strategy {#cross-implementation-strategy}
 
 Three implementations to bring along:
 
@@ -151,7 +156,7 @@ zsync2-cpp &rlharu; reader gozsync, in both directions, with
 `--format=zsync2`. The current four MD4/SHA-1 round trips stay green
 &mdash; legacy isn't going anywhere.
 
-## Implementation cost (in `go-deltasync/zsync2`)
+## Implementation cost (in `go-deltasync/zsync2`) {#implementation-cost-in-go-deltasynczsync2}
 
 About 100&ndash;150 lines added, no removals:
 
@@ -168,7 +173,7 @@ About 100&ndash;150 lines added, no removals:
 
 Coverage gate stays at &ge;99 % on `internal/zsync`.
 
-## Open questions
+## Open questions {#open-questions}
 
 1. **Truncation width.** MD4 zsync files traditionally truncate to 2-4
    bytes per block to keep `.zsync` small. With BLAKE3 we could go
@@ -184,7 +189,7 @@ Coverage gate stays at &ge;99 % on `internal/zsync`.
    `foo.bin.zsync` and `foo.bin.zsync2`. Drop the legacy after one
    year of telemetry.
 
-## Reference docs
+## Reference docs {#reference-docs}
 
 - [BLAKE3 paper](https://github.com/BLAKE3-team/BLAKE3-specs/blob/master/blake3.pdf)
 - [Phipps' original zsync paper](https://zsync.moria.org.uk/paper200524/paper.html)

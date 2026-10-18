@@ -1,4 +1,9 @@
-# zsync2
+---
+title: "zsync2"
+weight: 20
+---
+
+# zsync2 {#zsync2}
 
 **A pure-Go, cross-platform reimplementation of the zsync delta-update
 protocol &mdash; with a path to BLAKE3.**
@@ -15,20 +20,20 @@ Debian and Ubuntu ISO mirrors all rely on this for delta updates.
 `go-deltasync/zsync2` is a single-binary, cgo-free reimplementation
 that ships the same on-the-wire format as the C reference, runs on
 Linux/macOS/Windows out of the box, and is the staging ground for the
-[BLAKE3 strong-checksum proposal](proposal-blake3.md) that
+[BLAKE3 strong-checksum proposal]({{< relref "proposal-blake3.md" >}}) that
 replaces the broken MD4 / SHA-1 hashes the protocol historically
 required.
 
-## What you get
+## What you get {#what-you-get}
 
 | | Where |
 | --- | --- |
-| Two CLIs &mdash; `gozsync` (client) + `gozsyncmake` (server side) | [Quick start](quickstart.md) &middot; [CLI reference](cli.md) |
-| 100 % statement coverage on the protocol package | [Wire compatibility](compat.md) |
-| Byte-identical interop with Phipps' C `zsync` and AppImageCommunity's C++ `zsync2` | [Wire compatibility](compat.md#what-we-test-against) |
-| Roadmap for BLAKE3 + modern integrity guarantees | [BLAKE3 proposal](proposal-blake3.md) |
+| Two CLIs &mdash; `gozsync` (client) + `gozsyncmake` (server side) | [Quick start]({{< relref "quickstart.md" >}}) &middot; [CLI reference]({{< relref "cli.md" >}}) |
+| 100 % statement coverage on the protocol package | [Wire compatibility]({{< relref "compat.md" >}}) |
+| Byte-identical interop with Phipps' C `zsync` and AppImageCommunity's C++ `zsync2` | [Wire compatibility]({{< relref "compat.md#what-we-test-against" >}}) |
+| Roadmap for BLAKE3 + modern integrity guarantees | [BLAKE3 proposal]({{< relref "proposal-blake3.md" >}}) |
 
-## Install
+## Install {#install}
 
 ```bash
 go install github.com/go-deltasync/zsync2/cmd/gozsync@latest
@@ -39,7 +44,7 @@ Pre-built binaries for Linux/macOS/Windows on amd64 and arm64 are
 published on every tag &mdash; see the
 [Releases page](https://github.com/go-deltasync/zsync2/releases).
 
-## The 30-second demo
+## The 30-second demo {#the-30-second-demo}
 
 ```bash
 # server side: hash the file and produce the control file
@@ -56,11 +61,11 @@ gozsync --input ./old-version --output ./new-version \
 ```
 
 Full walk-through with a three-terminal end-to-end test on the
-[Quick start](quickstart.md) page.
+[Quick start]({{< relref "quickstart.md" >}}) page.
 
-## What's coming
+## What's coming {#whats-coming}
 
-The active design discussion is the [BLAKE3 proposal](proposal-blake3.md):
+The active design discussion is the [BLAKE3 proposal]({{< relref "proposal-blake3.md" >}}):
 swap MD4 (broken since 2004) and SHA-1 (broken since 2017) for BLAKE3
 across the wire format, keep the legacy `.zsync` path readable forever,
 and ship a `.zsync2` alongside it for clients that can use it.
@@ -68,7 +73,7 @@ and ship a `.zsync2` alongside it for clients that can use it.
 Implementation is in flight on the `main` branch behind a
 `gozsyncmake --format zsync2` flag.
 
-## About go-deltasync
+## About go-deltasync {#about-go-deltasync}
 
 This organization hosts cross-platform Go implementations of file-level
 delta-synchronization protocols. The common thread: single static binary,
@@ -76,12 +81,12 @@ no cgo, and wire compatibility with a canonical reference implementation.
 
 | Project | Family | What it does |
 | --- | --- | --- |
-| **zsync2** | rsync-over-HTTP | Fetch only changed blocks of a file from a plain HTTP server, using a `.zsync` control file. [Docs &raquo;](quickstart.md) |
-| **rdiff** | rsync local (librsync) | Compute a standalone signature/delta/patch between two local file versions, byte-compatible with the C `rdiff`. [Docs &raquo;](../rdiff/quickstart.md) |
+| **zsync2** | rsync-over-HTTP | Fetch only changed blocks of a file from a plain HTTP server, using a `.zsync` control file. [Docs &raquo;]({{< relref "quickstart.md" >}}) |
+| **rdiff** | rsync local (librsync) | Compute a standalone signature/delta/patch between two local file versions, byte-compatible with the C `rdiff`. [Docs &raquo;]({{< relref "../rdiff/quickstart.md" >}}) |
 
 More protocols (a `casync`-style chunker, a standardized VCDIFF codec,
 &hellip;) may land here as they get the same no-cgo, cross-platform treatment.
 
-[Contributing](../contributing.md) lays out the two non-negotiables for
+[Contributing]({{< relref "../contributing.md" >}}) lays out the two non-negotiables for
 anything that ships here: wire compatibility against a canonical
 reference, and no cgo.
